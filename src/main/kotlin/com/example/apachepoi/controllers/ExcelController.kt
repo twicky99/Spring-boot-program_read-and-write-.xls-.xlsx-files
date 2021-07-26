@@ -1,5 +1,6 @@
 package com.example.apachepoi.controllers
 
+import com.example.apachepoi.models.DataRows
 import com.example.apachepoi.services.ExcelService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.io.InputStreamResource
@@ -7,6 +8,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestPart
@@ -18,9 +20,12 @@ import java.io.IOException
 @Controller
 class ExcelController @Autowired constructor(private val excelService: ExcelService) {
 
+    private var data: DataRows = DataRows()
+
     @GetMapping
-    fun downloadPage(): String {
-        return "test";
+    fun downloadPage(model: Model): String {
+        model.addAttribute("data", data)
+        return "test"
     }
 
     @GetMapping("/download")
@@ -48,7 +53,7 @@ class ExcelController @Autowired constructor(private val excelService: ExcelServ
         if (extension != ".xls" && extension != ".xlsx") {
             throw RuntimeException("Not valid file")
         }
-        excelService.uploadExcelFile(file.bytes)
+        data = excelService.uploadExcelFile(file.bytes)
         return "redirect:/"
     }
 }

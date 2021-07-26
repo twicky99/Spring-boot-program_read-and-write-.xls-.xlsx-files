@@ -6,8 +6,20 @@
 </head>
 <body>
 <form method="POST" th:action="@{/upload}" enctype="multipart/form-data">
-    <input type="file" name="file"/>
+    <input type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
     <button type="submit">submit</button>
 </form>
+<table th:border="1px">
+    <thead>
+    <tr>
+        <td th:each="data, i : ${data.headers}" th:text="${data}">header</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="rowLine, i : ${data.rows}">
+        <td th:each="val : ${rowLine.row}" th:text="${val}">value</td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
