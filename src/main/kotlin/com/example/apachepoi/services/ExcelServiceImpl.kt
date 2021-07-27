@@ -22,13 +22,13 @@ class ExcelServiceImpl : ExcelService {
                     val sheet: Sheet = workbook.createSheet("Test")
                     setHeader(workbook, sheet, headers)
 
-                    // what ever you want in body
+                    // whatever we want in body
                     var rowId = 1
                     for (i in 0..99) {
                         val row = sheet.createRow(rowId++)
                         row.createCell(0).setCellValue((i + 1).toDouble())
-                        row.createCell(1).setCellValue("Andie $i")
-                        row.createCell(2).setCellValue("Coopers $i")
+                        row.createCell(1).setCellValue("Kim $i")
+                        row.createCell(2).setCellValue("Jones $i")
                     }
                     for (col in headers.indices) {
                         sheet.autoSizeColumn(col)
